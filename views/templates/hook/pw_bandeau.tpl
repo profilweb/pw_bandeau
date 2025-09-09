@@ -1,5 +1,5 @@
 {**
- * Blocks Categories on HomePage: module for PrestaShop.
+ * Bandeau on HomePage: module for PrestaShop.
  *
  * @author    profilweb. <manu@profil-web.fr>
  * @copyright 2021 profil Web.
