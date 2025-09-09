@@ -2,7 +2,7 @@
 <module>
 	<name>pw_bandeau</name>
 	<displayName><![CDATA[PW Bandeau]]></displayName>
-	<version><![CDATA[1.0.0]]></version>
+	<version><![CDATA[1.5.0]]></version>
 	<description><![CDATA[Affiche un bandeau défilant dans le header]]></description>
 	<author><![CDATA[Profil Web]]></author>
 	<tab><![CDATA[front_office_features]]></tab>

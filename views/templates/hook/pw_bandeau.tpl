@@ -8,12 +8,12 @@
  *}
 
 <!-- MODULE pw_bandeau -->
-{if !empty($text)}
+{if !empty($bandeau_text)}
     <div id="bandeau" class="bandeau">
         <div class="txt-defilant">
             <p>
-                <span>{$text}</span>
-                <span>{$text}</span>
+                <span>{$bandeau_text}</span>
+                <span>{$bandeau_text}</span>
             </p>
         </div>
     </div><!-- .bandeau -->
