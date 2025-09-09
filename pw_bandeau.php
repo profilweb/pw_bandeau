@@ -10,7 +10,7 @@
 * http://opensource.org/licenses/osl-3.0.php
 *
 * @author    Profil Web
-* @copyright Copyright 2021 ©profilweb All right reserved
+* @copyright Copyright 2025 ©profilweb All right reserved
 * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 * @package   pw_homecategories
 */
@@ -26,7 +26,7 @@ class PW_Bandeau extends Module
         $this->name = 'pw_bandeau';
         $this->tab = 'front_office_features';
         $this->version = '1.0.0';
-        $this->author = 'VotreNom';
+        $this->author = 'Profil Web';
         $this->need_instance = 0;
         $this->bootstrap = true;
 
