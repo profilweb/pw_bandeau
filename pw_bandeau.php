@@ -36,44 +36,69 @@ class PW_Bandeau extends Module
         $this->description = $this->l('Module pour afficher un bandeau multilangue.');
     }
 
+    // --- Installation ---
     public function install()
     {
         return parent::install() &&
-               $this->installTab() &&
-               $this->registerHook('displayHome');
+               $this->registerHook(['displayHome']) &&
+               $this->installConfig();
     }
 
+    // --- Désinstallation ---
     public function uninstall()
     {
         return parent::uninstall() &&
-               $this->uninstallTab() &&
-               $this->cleanConfig();
+               $this->uninstallConfig();
     }
 
-    protected function installTab()
+    // --- Installation de la configuration ---
+    protected function installConfig()
     {
-        return true; // Pas de tab nécessaire pour ce module simple
-    }
+        // 1. Crée l'entrée dans ps_configuration si elle n'existe pas
+        if (!Configuration::get('PW_BANDEAU_TXT')) {
+            Configuration::updateValue('PW_BANDEAU_TXT', ''); // Valeur vide, on utilise ps_configuration_lang
+        }
 
-    protected function uninstallTab()
-    {
+        $id_config = (int)Configuration::getIdByName('PW_BANDEAU_TXT');
+
+        // 2. Initialise les valeurs pour toutes les langues activées
+        $languages = Language::getLanguages(true); // true = langues activées seulement
+        foreach ($languages as $lang) {
+            $lang_id = (int)$lang['id_lang'];
+
+            // Vérifie si l'entrée existe déjà pour cette langue
+            $exists = Db::getInstance()->getValue(
+                'SELECT COUNT(*) FROM `'._DB_PREFIX_.'configuration_lang`
+                WHERE `id_configuration` = '. $id_config .'
+                AND `id_lang` = '. $lang_id
+            );
+
+            if (!$exists) {
+                // Insère une valeur par défaut (vide) pour chaque langue
+                Db::getInstance()->insert('configuration_lang', [
+                    'id_configuration' => $id_config,
+                    'id_lang' => $lang_id,
+                    'value' => '',
+                ]);
+            }
+        }
+
         return true;
     }
 
-    protected function cleanConfig()
+    // --- Désinstallation de la configuration ---
+    protected function uninstallConfig()
     {
-        // Supprime toutes les entrées de configuration liées au module
-        Db::getInstance()->execute('
-            DELETE FROM `'._DB_PREFIX_.'configuration_lang`
-            WHERE `id_configuration` IN (
-                SELECT `id_configuration` FROM `'._DB_PREFIX_.'configuration`
-                WHERE `name` LIKE "PW_BANDEAU_%"
-            )
-        ');
-        Db::getInstance()->execute('
-            DELETE FROM `'._DB_PREFIX_.'configuration`
-            WHERE `name` LIKE "PW_BANDEAU_%"
-        ');
+        $id_config = (int)Configuration::getIdByName('PW_BANDEAU_TXT');
+
+        if ($id_config) {
+            // Supprime les entrées dans ps_configuration_lang
+            Db::getInstance()->delete('configuration_lang', 'id_configuration = '. $id_config);
+
+            // Supprime l'entrée dans ps_configuration
+            return Configuration::deleteByName('PW_BANDEAU_TXT');
+        }
+
         return true;
     }
 
