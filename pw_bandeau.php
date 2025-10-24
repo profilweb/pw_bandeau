@@ -32,6 +32,7 @@ class PW_Bandeau extends Module
 
         parent::__construct();
 
+        $this->context->smarty->caching = false;  
         $this->displayName = $this->l('PW Bandeau');
         $this->description = $this->l('Module pour afficher un bandeau multilangue.');
     }
