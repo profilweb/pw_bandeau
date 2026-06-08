@@ -1,3 +1,3 @@
-# PW Home categories
+# PW Bandeau
 
-Affiche des blocs catégories sur la page d'accueil. 
+Affiche un bandeau défilant dans le header. 
