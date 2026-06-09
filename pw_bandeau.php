@@ -25,7 +25,7 @@ class PW_Bandeau extends Module
     {
         $this->name = 'pw_bandeau';
         $this->tab = 'front_office_features';
-        $this->version = '1.0.0';
+        $this->version = '1.5.1';
         $this->author = 'Profil Web';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -218,7 +218,7 @@ class PW_Bandeau extends Module
         return $values;
     }
 
-    public function hookDisplayHome($params)
+    public function hookDisplayBanner()
     {
         $id_config = Configuration::getIdByName('PW_BANDEAU_TXT');
         if (!$id_config) {
