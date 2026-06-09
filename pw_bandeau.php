@@ -41,7 +41,7 @@ class PW_Bandeau extends Module
     public function install()
     {
         return parent::install() &&
-               $this->registerHook(['displayHome']) &&
+               $this->registerHook(['displayBanner']) &&
                $this->installConfig();
     }
 
